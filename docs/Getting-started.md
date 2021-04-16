@@ -6,9 +6,11 @@ tags: [readme, index, oqapi, api, guide]
 
 ## Prerequisites
 
+> Request access by writitng us about your use-case at [oqapi@questioning.ai](mailto:oqapi@questioning.ai)
+
 -   You have an application exposed to Internet able to make POST request to a third-party APIs
 -   Your application works with conversational data
--   You have obtained the valid API `oqapi-subscription-key` to access OQAPI
+-   You have obtained the valid API Subscription Key `oqapi-subscription-key` to access OQAPI.
 
 ## Integrating-OQAPI
 

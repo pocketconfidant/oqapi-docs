@@ -5,6 +5,8 @@ info:
   description: |-
     **Open Question API (OQAPI)** is the question-generation technology from questioning.ai family. It is embedded into a REST API interface. It is built with the purpose to enable coaching questioning capabilities in software or hypbrid hardware/software systems. The examples are learning management systems (LMS), chatbot assistants, human-assisted applications, assistive robotics, and others.
 
+    > Request access by writitng us about your use-case at [oqapi@questioning.ai](mailto:oqapi@questioning.ai)
+
     All questioning.ai documentation is available via https://docs.questioning.ai
 
     questioning.ai is owned and managed by [PocketConfidant AI SAS](https://pocketconfidant.com)
