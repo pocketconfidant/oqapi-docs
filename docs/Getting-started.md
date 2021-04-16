@@ -50,7 +50,7 @@ This is the method to send requests to a REST API endpoint.
     "oqapi-subscription-key": "",
     "Content-Type": "application/json"
   },
-  "body": "{\n  \"story\": \"string\"\n}"
+  "body": "{\n  \"story\": \"At PocketConfidant, our mission is to empower students and learners so that they can develop the best version of themselves and make sense of their academic, professional and personal journey in their own way in order to find study-work-life balance and develop their inner coaching capacity to handle the constant change of our modern world.\"\n}"
 }
 ```
 
