@@ -1,0 +1,435 @@
+openapi: 3.0.0
+info:
+  title: Open Question API
+  version: '1.0'
+  description: |-
+    **Open Question API (OQAPI)** is the question-generation technology from questioning.ai family. It is embedded into a REST API interface. It is built with the purpose to enable coaching questioning capabilities in software or hypbrid hardware/software systems. The examples are learning management systems (LMS), chatbot assistants, human-assisted applications, assistive robotics, and others.
+
+    All questioning.ai documentation is available via https://docs.questioning.ai
+
+    questioning.ai is owned and managed by [PocketConfidant AI SAS](https://pocketconfidant.com)
+  termsOfService: 'https://pocketconfidant.com/terms/'
+  contact:
+    name: questioning.ai team
+    url: 'https://pocketconfidant.com/contact/'
+    email: oqapi@questioning.ai
+servers:
+  - url: 'https://oqapi.io/v1'
+    description: v1
+paths:
+  /sentences:
+    post:
+      summary: POST Sentences and Questions endpoint
+      operationId: post-sentences
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                story:
+                  type: string
+                  minLength: 1
+              required:
+                - story
+            examples:
+              example-1:
+                value:
+                  story: 'In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can''t do this all the time.'
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              example-1:
+                value: {}
+        description: 'For a POST request, you can use the `body` property to pass a JSON string as input. Note that the request body should be a JSON string, while the headers should be a JSON object. The request body must contain non-empty string `story`, for which the questions will be generated. '
+      parameters:
+        - $ref: '#/components/parameters/oqapi-app-id'
+        - $ref: '#/components/parameters/oqapi-correlation-id'
+        - $ref: '#/components/parameters/x-ms-client-tracking-id'
+      description: 'Operation retrieves the analyzed text broken down into sentences with generated questions, plus additional metadata, such as timestamp, API versioning, and others. '
+      responses:
+        '200':
+          $ref: '#/components/responses/Sentences-with-Questions'
+        '422':
+          $ref: '#/components/responses/Exception'
+      security:
+        - Subscription Key: []
+      tags:
+        - Endpoints
+        - Question Generation
+  /wakeup:
+    get:
+      summary: GET Wake-up endpoint
+      responses:
+        '200':
+          $ref: '#/components/responses/Wakeup'
+      operationId: get-wakeup
+      parameters:
+        - $ref: '#/components/parameters/oqapi-app-id'
+        - $ref: '#/components/parameters/oqapi-correlation-id'
+        - $ref: '#/components/parameters/x-ms-client-tracking-id'
+      security:
+        - Subscription Key: []
+      description: Sending this request allows to minimize response time of the OQAPI thanks to waking it up before sending the actual request.
+      tags:
+        - Endpoints
+        - Availability
+components:
+  schemas:
+    Question:
+      description: A model for the question object
+      type: object
+      title: Question object
+      x-examples:
+        example-1:
+          id: 2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c_q00
+          markdown: 'You said **I do not like**, if you don''t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.'
+          html: '<span class="question">You said <strong class="phrase">I do not like</strong>, if you don''t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.</span>'
+      properties:
+        id:
+          type: string
+          minLength: 1
+        markdown:
+          type: string
+          minLength: 1
+        html:
+          type: string
+          minLength: 1
+        phrase:
+          type: string
+        domain:
+          type: string
+        methodology:
+          type: string
+        scope:
+          type: string
+        type:
+          type: string
+      required:
+        - id
+        - markdown
+        - html
+      x-tags:
+        - Models
+    Sentence:
+      description: A model for the sentence object
+      type: object
+      title: Sentence object
+      properties:
+        id:
+          type: string
+          minLength: 1
+        markdown:
+          type: string
+          minLength: 1
+        html:
+          type: string
+          minLength: 1
+        questions:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Question'
+      required:
+        - id
+        - markdown
+        - html
+      x-examples:
+        example-1:
+          id: 2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c
+          markdown: 'In all cases, **I do not like** to intentionally look for a solution, an answer or a different perspective.'
+          html: 'In all cases, <strong class="phrase">I do not like</strong> to intentionally look for a solution, an answer or a different perspective.'
+          questions:
+            - id: 2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c_q00
+              markdown: 'You said **I do not like**, if you don''t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.'
+              html: '<span class="question">You said <strong class="phrase">I do not like</strong>, if you don''t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.</span>'
+      x-tags:
+        - Models
+    API:
+      description: 'A model to describe API meta information like verion, build number, name'
+      type: object
+      title: API description
+      properties:
+        name:
+          type: string
+          minLength: 1
+        version:
+          type: number
+        build:
+          type: number
+      required:
+        - version
+      x-tags:
+        - Models
+      x-examples:
+        example-1:
+          version: 1
+          build: 13
+          name: Open Question API
+    OEXP:
+      description: A model describing required elements according to the Open Ethics eXplainability Protocol
+      type: object
+      title: OEXP description
+      properties:
+        verion:
+          type: string
+          minLength: 1
+        privacy:
+          type: string
+          minLength: 1
+        terms:
+          type: string
+          minLength: 1
+      x-examples:
+        example-1:
+          verion: 0.9.3
+          privacy: 'https://pocketconfidant.com/privacy/'
+          terms: 'https://pocketconfidant.com/terms/'
+      x-tags:
+        - Models
+    Exception:
+      title: Exception output
+      type: object
+      description: A model to describe exceptions and errors in the output
+      properties:
+        errorMessage:
+          type: string
+        statusCode:
+          type: number
+      required:
+        - errorMessage
+        - statusCode
+      x-tags:
+        - Models
+      x-examples:
+        example-1:
+          errorMessage: Pass a story in the request body for a personalized response.
+          statusCode: 422
+  securitySchemes:
+    Subscription Key:
+      type: apiKey
+      in: header
+      description: ''
+      name: oqapi-subscription-key
+  responses:
+    Sentences-with-Questions:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              api:
+                $ref: '#/components/schemas/API'
+              timestamp:
+                type: number
+              input:
+                type: object
+                required:
+                  - story
+                properties:
+                  story:
+                    type: string
+                    minLength: 1
+              output:
+                type: object
+                required:
+                  - sentences
+                properties:
+                  sentences:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      $ref: '#/components/schemas/Sentence'
+              oexp:
+                $ref: '#/components/schemas/OEXP'
+            required:
+              - api
+              - timestamp
+              - input
+              - output
+              - oexp
+          examples:
+            example-1:
+              $ref: '#/components/examples/200-sentences-processed'
+    Exception:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              api:
+                $ref: '#/components/schemas/API'
+              timestamp:
+                type: number
+              input:
+                type: object
+              output:
+                $ref: '#/components/schemas/Exception'
+              oexp:
+                $ref: '#/components/schemas/OEXP'
+            required:
+              - api
+              - timestamp
+              - input
+              - output
+              - oexp
+          examples:
+            example-1:
+              $ref: '#/components/examples/422-empty-story-parameter'
+      headers: {}
+    Wakeup:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              api:
+                $ref: '#/components/schemas/API'
+              timestamp:
+                type: number
+              input:
+                type: string
+              output:
+                type: object
+                required:
+                  - successMessage
+                  - statusCode
+                properties:
+                  successMessage:
+                    type: string
+                    minLength: 1
+                  statusCode:
+                    type: number
+              oexp:
+                $ref: '#/components/schemas/OEXP'
+            required:
+              - api
+              - timestamp
+              - input
+              - output
+              - oexp
+          examples:
+            example-1:
+              $ref: '#/components/examples/200-wakeup-successful'
+      headers: {}
+  examples:
+    422-empty-story-parameter:
+      value:
+        api:
+          version: 1
+          build: 13
+          name: Open Question API
+        timestamp: 1618485143.8395653
+        input:
+          story: ''
+        output:
+          errorMessage: Pass a story in the request body for a personalized response.
+          statusCode: 422
+        oexp:
+          verion: 0.9.3
+          privacy: 'https://pocketconfidant.com/privacy/'
+          terms: 'https://pocketconfidant.com/terms/'
+    200-sentences-processed:
+      value:
+        api:
+          version: 1
+          build: 13
+          name: Open Question API
+        timestamp: 1618486191.8156228
+        input:
+          story: 'In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can''t do this all the time.'
+        output:
+          processed_text: 'In cases, I don’t like intentionally look solution, answer different perspective. Demanding something doesn’t seem lead breakthrough. Humbly yes, surrendering attempts figure own, creates new paths opens doors. I can''t time.'
+          entities: ''
+          sentences:
+            - id: 2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c
+              markdown: 'In all cases, **I do not like** to intentionally look for a solution, an answer or a different perspective.'
+              html: 'In all cases, <strong class="phrase">I do not like</strong> to intentionally look for a solution, an answer or a different perspective.'
+              questions:
+                - id: 2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c_q00
+                  markdown: 'When saying **I do not like**, if you don''t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.'
+                  html: '<span class="question">When saying <strong class="phrase">I do not like</strong>, if you don''t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.</span>'
+            - id: 861ce447e81754daa07aa9b8cd5706a0655ca314eda4a924d54bff43
+              markdown: Demanding something does not seem to lead to a breakthrough.
+              html: Demanding something does not seem to lead to a breakthrough.
+              questions: []
+            - id: 5606a1ab45363a8316589fd2bbfdd5cdabd6dc7f58bb07a7e482f75c
+              markdown: 'Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors.'
+              html: 'Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors.'
+              questions: []
+            - id: 6345f9953880d0d7243e2fd87a413dd82598a94de6c7706c6779acb0
+              markdown: I just can not do this **all the time**.
+              html: I just can not do this <strong class="phrase">all the time</strong>.
+              questions:
+                - id: 6345f9953880d0d7243e2fd87a413dd82598a94de6c7706c6779acb0_q00
+                  markdown: 'When saying **all the time**, what would you like to have happen instead? Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.'
+                  html: '<span class="question">When saying <strong class="phrase">all the time</strong>, what would you like to have happen instead? Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.</span>'
+        oexp:
+          verion: 0.9.3
+          privacy: 'https://pocketconfidant.com/privacy/'
+          terms: 'https://pocketconfidant.com/terms/'
+    200-wakeup-successful:
+      value:
+        api:
+          version: 1
+          build: 13
+          name: Open Question API
+        timestamp: 1618485143.8395653
+        input:
+          story: ''
+        output:
+          successMessage: Wakeup is successful
+          statusCode: 200
+        oexp:
+          verion: 0.9.3
+          privacy: 'https://pocketconfidant.com/privacy/'
+          terms: 'https://pocketconfidant.com/terms/'
+  parameters:
+    oqapi-app-id:
+      name: oqapi-app-id
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Required Application ID header used for response personalization
+    oqapi-correlation-id:
+      name: oqapi-correlation-id
+      in: header
+      required: false
+      schema:
+        type: string
+        format: uuid
+      description: Optional header preserved in the response to allow request/response correlation for the downstream apps
+    oqapi-subscription-key:
+      name: oqapi-subscription-key
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Required Subscription Key header used for authorization
+    x-ms-client-tracking-id:
+      name: x-ms-client-tracking-id
+      in: header
+      required: false
+      schema:
+        type: string
+        format: uuid
+      description: Optional header preserved in the response to allow request/response correlation across multiple apps
+tags:
+  - name: NLG
+  - name: NLP
+  - name: Psycholinguistics
+  - name: Question Generation
+security:
+  - Subscription Key: []
