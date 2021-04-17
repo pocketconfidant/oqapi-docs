@@ -197,20 +197,20 @@ components:
       title: Exception output
       type: object
       description: A model to describe exceptions and errors in the output
-      properties:
-        errorMessage:
-          type: string
-        statusCode:
-          type: number
-      required:
-        - errorMessage
-        - statusCode
       x-tags:
         - Models
       x-examples:
         example-1:
-          errorMessage: Pass a story in the request body for a personalized response.
+          message: The error message
           statusCode: 422
+      properties:
+        message:
+          type: string
+        statusCode:
+          type: number
+      required:
+        - message
+        - statusCode
   securitySchemes:
     Subscription Key:
       type: apiKey
@@ -336,7 +336,7 @@ components:
         input:
           story: ''
         output:
-          errorMessage: Pass a story in the request body for a personalized response.
+          message: Pass a story in the request body for a personalized response.
           statusCode: 422
         oexp:
           verion: 0.9.3
