@@ -6,7 +6,7 @@ tags: [readme, index, oqapi, api, guide]
 
 ## Prerequisites
 
-> Request access by writitng us about your use-case at [oqapi@questioning.ai](mailto:oqapi@questioning.ai)
+> Request access by writitng us about your use-case via [https://pocketconfidant.com/oqapi/](https://pocketconfidant.com/oqapi/)
 
 -   You have an application exposed to Internet able to make POST request to a third-party APIs
 -   Your application works with conversational data
