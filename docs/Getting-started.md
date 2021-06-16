@@ -10,7 +10,7 @@ tags: [readme, index, oqapi, api, guide]
 
 -   You have an application exposed to Internet able to make POST request to a third-party APIs
 -   Your application works with conversational data
--   You have obtained the valid API Subscription Key `oqapi-subscription-key` to access OQAPI.
+-   You have obtained the valid API Subscription Key `oqapi-subscription-key` and API Application ID `oqapi-app-id` to access OQAPI.
 
 ## Integrating-OQAPI
 
