@@ -24,7 +24,7 @@ Integration of OQAPI is a two-step process:
 This is the method to send requests to a REST API endpoint.
 
 -   **method**: POST
--   **endpoint URL**: <https://oqapi.io/v1/sentences>
+-   **endpoint URL**: <https://oqapi.io/v1/questions>
 -   **request body**
     -   `story`: A text (_string_), typically a size of a paragraph, containing 1-5 sentences of user's story to which questioning should be applied.
 
@@ -46,7 +46,7 @@ This is the method to send requests to a REST API endpoint.
 ```json http
 {
   "method": "post",
-  "url": "https://oqapi.io/v1/sentences",
+  "url": "https://oqapi.io/v1/questions",
   "headers": {
     "oqapi-app-id": "",
     "oqapi-subscription-key": "",
