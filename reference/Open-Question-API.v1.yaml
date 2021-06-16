@@ -51,10 +51,56 @@ paths:
         - $ref: '#/components/parameters/oqapi-app-id'
         - $ref: '#/components/parameters/oqapi-correlation-id'
         - $ref: '#/components/parameters/x-ms-client-tracking-id'
-      description: 'Operation retrieves the analyzed text broken down into sentences with generated questions, plus additional metadata, such as timestamp, API versioning, and others. '
+      description: 'Operation retrieves the analyzed text broken down into sentences with generated questions, plus additional metadata, such as timestamp, API versioning, and others. Unlike /questions/ endpoint, requests to /sentences/ endpoint supplies only questions which are specific to linguistic markers detected within each sentence. If the linguistic marker is absent, the output list of questions adjaccent to each sentences might be empty. This endpoint is useful if you want to provide a very context-specific details to your user.'
       responses:
         '200':
           $ref: '#/components/responses/Sentences-with-Questions'
+        '422':
+          $ref: '#/components/responses/Exception'
+      security:
+        - Subscription Key: []
+      tags:
+        - Endpoints
+        - Question Generation
+  /questions:
+    post:
+      summary: POST Questions endpoint
+      operationId: post-questions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                story:
+                  type: string
+                  minLength: 1
+              required:
+                - story
+            examples:
+              example-1:
+                value:
+                  story: 'In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can''t do this all the time.'
+              example-2:
+                value:
+                  story: 'When in my thoughts I''m coming back to my situation, I''d want make things happen now.'
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              example-1:
+                value: {}
+        description: 'For a POST request, you can use the `body` property to pass a JSON string as input. Note that the request body should be a JSON string, while the headers should be a JSON object. The request body must contain non-empty string `story`, for which the questions will be generated. '
+      parameters:
+        - $ref: '#/components/parameters/oqapi-app-id'
+        - $ref: '#/components/parameters/oqapi-correlation-id'
+        - $ref: '#/components/parameters/x-ms-client-tracking-id'
+      description: 'Operation retrieves the list of generated questions, plus additional metadata, such as timestamp, API versioning, and others. Unlike /sentences/ endpoint, requests to /questions/ endpoint will always supply one or multiple questions. These questions are either specific to linguistic markers, or generic, without the referrence to a phrase.'
+      responses:
+        '200':
+          $ref: '#/components/responses/List-of-Questions'
         '422':
           $ref: '#/components/responses/Exception'
       security:
@@ -260,6 +306,85 @@ components:
           examples:
             example-1:
               $ref: '#/components/examples/200-sentences-processed'
+    List-of-Questions:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              api:
+                $ref: '#/components/schemas/API'
+              timestamp:
+                type: number
+              input:
+                type: object
+                required:
+                  - story
+                properties:
+                  story:
+                    type: string
+                    minLength: 1
+              output:
+                type: object
+                required:
+                  - questions
+                properties:
+                  questions:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      $ref: '#/components/schemas/Question'
+              oexp:
+                $ref: '#/components/schemas/OEXP'
+            required:
+              - api
+              - timestamp
+              - input
+              - output
+              - oexp
+          examples:
+            example-1:
+              value:
+                api:
+                  version: 1
+                  build: 16
+                  name: Open Question API
+                timestamp: 1623826813.6222022
+                input:
+                  story: 'In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can''t do this all the time.'
+                output:
+                  questions:
+                    - id: 2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c_q00
+                      markdown: 'When saying **I do not like**, if you don''t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.'
+                      html: '<span class="question">When saying <strong class="phrase">I do not like</strong>, if you don''t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.</span>'
+                    - id: 6345f9953880d0d7243e2fd87a413dd82598a94de6c7706c6779acb0_q00
+                      markdown: 'When you say **all the time**, what would you like to have happen instead? Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.'
+                      html: '<span class="question">When you say <strong class="phrase">all the time</strong>, what would you like to have happen instead? Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.</span>'
+                oexp:
+                  verion: 0.9.3
+                  privacy: 'https://pocketconfidant.com/privacy/'
+                  terms: 'https://pocketconfidant.com/terms/'
+            example-2:
+              value:
+                api:
+                  version: 1
+                  build: 16
+                  name: Open Question API
+                timestamp: 1623825832.1421797
+                input:
+                  story: 'When in my thoughts I''m coming back to my situation, I''d want make things happen now.'
+                output:
+                  questions:
+                    - id: 5e3b233dbaac8fabfdd9357f881b91b9d5cef731ea62abe7e647b029_q00
+                      markdown: 'When saying **back to my**, how can you do that, what specific easily achievable decision or action can you make? Identifying and defining this element will make your path more achievable.'
+                      html: '<span class="question">When saying <strong class="phrase">back to my</strong>, how can you do that, what specific easily achievable decision or action can you make? Identifying and defining this element will make your path more achievable.</span>'
+                oexp:
+                  verion: 0.9.3
+                  privacy: 'https://pocketconfidant.com/privacy/'
+                  terms: 'https://pocketconfidant.com/terms/'
     Exception:
       description: Example response
       content:
