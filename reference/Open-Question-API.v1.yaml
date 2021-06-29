@@ -33,12 +33,27 @@ paths:
                 story:
                   type: string
                   minLength: 1
+                  description: 'The request body must contain non-empty string `story`, for which the questions will be generated. '
+                options:
+                  type: object
+                  description: To control how questions are provided in the response output
+                  properties:
+                    verbose:
+                      type: boolean
+                      description: '**verbosity**: use `{"verbose": false}` for compact questions and statements provided separately. Use `{"verbose": true}` for questions and statements provided in the same varible.'
               required:
                 - story
             examples:
-              example-1:
+              example-verbose:
                 value:
                   story: 'In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can''t do this all the time.'
+                  options:
+                    verbose: true
+              example-compact:
+                value:
+                  story: 'In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can''t do this all the time.'
+                  options:
+                    verbose: false
           application/xml:
             schema:
               type: object
@@ -46,7 +61,15 @@ paths:
             examples:
               example-1:
                 value: {}
-        description: 'For a POST request, you can use the `body` property to pass a JSON string as input. Note that the request body should be a JSON string, while the headers should be a JSON object. The request body must contain non-empty string `story`, for which the questions will be generated. '
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {}
+        description: |-
+          For a POST request, you can use the `body` property to pass a JSON string as input. Note that the request body should be a JSON string, while the headers should be a JSON object. The request body must contain non-empty string `story`, for which the questions will be generated. 
+
+          To control how questions are provided in the response output, `options` could be used.
+          * **verbosity**: use `{"verbose": false}` for compact questions and statements provided separately. Use `{"verbose": true}` for questions and statements provided in the same varible.
       parameters:
         - $ref: '#/components/parameters/oqapi-app-id'
         - $ref: '#/components/parameters/oqapi-correlation-id'
@@ -54,7 +77,7 @@ paths:
       description: 'Operation retrieves the analyzed text broken down into sentences with generated questions, plus additional metadata, such as timestamp, API versioning, and others. Unlike /questions/ endpoint, requests to /sentences/ endpoint supplies only questions which are specific to linguistic markers detected within each sentence. If the linguistic marker is absent, the output list of questions adjaccent to each sentences might be empty. This endpoint is useful if you want to provide a very context-specific details to your user.'
       responses:
         '200':
-          $ref: '#/components/responses/Sentences-with-Questions'
+          $ref: '#/components/responses/Sentences-with-Questions-verbose'
         '422':
           $ref: '#/components/responses/Exception'
       security:
@@ -76,15 +99,27 @@ paths:
                 story:
                   type: string
                   minLength: 1
+                  description: 'The request body must contain non-empty string `story`, for which the questions will be generated. '
+                options:
+                  type: object
+                  description: To control how questions are provided in the response output
+                  properties:
+                    verbose:
+                      type: boolean
+                      description: '**verbosity**: use `{"verbose": false}` for compact questions and statements provided separately. Use `{"verbose": true}` for questions and statements provided in the same varible.'
               required:
                 - story
             examples:
-              example-1:
-                value:
-                  story: 'In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can''t do this all the time.'
-              example-2:
+              example-verbose:
                 value:
                   story: 'When in my thoughts I''m coming back to my situation, I''d want make things happen now.'
+                  options:
+                    verbose: true
+              example-comact:
+                value:
+                  story: 'In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can''t do this all the time.'
+                  options:
+                    verbose: false
           application/xml:
             schema:
               type: object
@@ -92,7 +127,11 @@ paths:
             examples:
               example-1:
                 value: {}
-        description: 'For a POST request, you can use the `body` property to pass a JSON string as input. Note that the request body should be a JSON string, while the headers should be a JSON object. The request body must contain non-empty string `story`, for which the questions will be generated. '
+        description: |-
+          For a POST request, you can use the `body` property to pass a JSON string as input. Note that the request body should be a JSON string, while the headers should be a JSON object. The request body must contain non-empty string `story`, for which the questions will be generated. 
+
+          To control how questions are provided in the response output, `options` could be used.
+          * **verbosity**: use `{"verbose": false}` for compact questions and statements provided separately. Use `{"verbose": true}` for questions and statements provided in the same varible.
       parameters:
         - $ref: '#/components/parameters/oqapi-app-id'
         - $ref: '#/components/parameters/oqapi-correlation-id'
@@ -132,20 +171,38 @@ components:
       type: object
       title: Question object
       x-examples:
-        example-1:
+        question-with-statement:
           id: 2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c_q00
           markdown: 'You said **I do not like**, if you don''t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.'
           html: '<span class="question">You said <strong class="phrase">I do not like</strong>, if you don''t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.</span>'
+          value:
+            id: 5e3b233dbaac8fabfdd9357f881b91b9d5cef731ea62abe7e647b029_q01
+            markdown: 'When saying **back to my**, how can you do that, what specific easily achievable decision or action can you make?'
+            html: '<span class="question">When saying <strong class="phrase">back to my</strong>, how can you do that, what specific easily achievable decision or action can you make?</span>'
+            statement: Identifying and defining this element will make your path more achievable.
+        question-verbose:
+          value:
+            id: 5e3b233dbaac8fabfdd9357f881b91b9d5cef731ea62abe7e647b029_q01
+            markdown: 'When saying **back to my**, how can you do that, what specific easily achievable decision or action can you make? Identifying and defining this element will make your path more achievable.'
+            html: '<span class="question">When saying <strong class="phrase">back to my</strong>, how can you do that, what specific easily achievable decision or action can you make?</span><span class="statement">Identifying and defining this element will make your path more achievable.</span>'
+      x-tags:
+        - Models
       properties:
         id:
           type: string
           minLength: 1
+          description: Question ID for the block of text or a sentence
         markdown:
           type: string
           minLength: 1
+          description: Question text provided in markdown
         html:
           type: string
           minLength: 1
+          description: Question text in html format
+        statement:
+          type: string
+          description: 'A text statement providing additional information to the user, explaining how to deal with questions and how to proceed. '
         phrase:
           type: string
         domain:
@@ -160,32 +217,10 @@ components:
         - id
         - markdown
         - html
-      x-tags:
-        - Models
     Sentence:
       description: A model for the sentence object
       type: object
       title: Sentence object
-      properties:
-        id:
-          type: string
-          minLength: 1
-        markdown:
-          type: string
-          minLength: 1
-        html:
-          type: string
-          minLength: 1
-        questions:
-          type: array
-          uniqueItems: true
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/Question'
-      required:
-        - id
-        - markdown
-        - html
       x-examples:
         example-1:
           id: 2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c
@@ -197,6 +232,30 @@ components:
               html: '<span class="question">You said <strong class="phrase">I do not like</strong>, if you don''t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.</span>'
       x-tags:
         - Models
+      properties:
+        id:
+          type: string
+          minLength: 1
+          description: unique sentence ID
+        markdown:
+          type: string
+          minLength: 1
+          description: sentence text in markdown format
+        html:
+          type: string
+          minLength: 1
+          description: sentence text in html format
+        questions:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          description: list of questions
+          items:
+            $ref: '#/components/schemas/Question'
+      required:
+        - id
+        - markdown
+        - html
     API:
       description: 'A model to describe API meta information like verion, build number, name'
       type: object
@@ -304,8 +363,51 @@ components:
               - output
               - oexp
           examples:
-            example-1:
-              $ref: '#/components/examples/200-sentences-processed'
+            200-sentences-processed-with-statements:
+              value:
+                api:
+                  version: 1
+                  build: 17
+                  name: Open Question API
+                timestamp: 1625004003.7487648
+                input:
+                  story: 'In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can''t do this all the time.'
+                  options:
+                    verbose: false
+                output:
+                  processed_text: 'In cases, I don’t like intentionally look solution, answer different perspective. Demanding something doesn’t seem lead breakthrough. Humbly yes, surrendering attempts figure own, creates new paths opens doors. I can''t time.'
+                  entities: []
+                  sentences:
+                    - id: 2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c
+                      markdown: 'In all cases, **I do not like** to intentionally look for a solution, an answer or a different perspective.'
+                      html: 'In all cases, <strong class="phrase">I do not like</strong> to intentionally look for a solution, an answer or a different perspective.'
+                      questions:
+                        - id: 2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c_q01
+                          markdown: 'When saying **I do not like**, if you don''t, then what do you like instead?'
+                          html: '<span class="question">When saying <strong class="phrase">I do not like</strong>, if you don''t, then what do you like instead?</span>'
+                          statement: 'Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.'
+                    - id: 861ce447e81754daa07aa9b8cd5706a0655ca314eda4a924d54bff43
+                      markdown: Demanding something does not seem to lead to a breakthrough.
+                      html: Demanding something does not seem to lead to a breakthrough.
+                      questions: []
+                    - id: 5606a1ab45363a8316589fd2bbfdd5cdabd6dc7f58bb07a7e482f75c
+                      markdown: 'Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors.'
+                      html: 'Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors.'
+                      questions: []
+                    - id: 6345f9953880d0d7243e2fd87a413dd82598a94de6c7706c6779acb0
+                      markdown: I just can not do this **all the time**.
+                      html: I just can not do this <strong class="phrase">all the time</strong>.
+                      questions:
+                        - id: 6345f9953880d0d7243e2fd87a413dd82598a94de6c7706c6779acb0_q01
+                          markdown: 'When saying **all the time**, what would you like to have happen instead?'
+                          html: '<span class="question">When saying <strong class="phrase">all the time</strong>, what would you like to have happen instead?</span>'
+                          statement: Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.
+                oexp:
+                  verion: 0.9.3
+                  privacy: 'https://pocketconfidant.com/privacy/'
+                  terms: 'https://pocketconfidant.com/terms/'
+            200-sentences-processed-verbose:
+              $ref: '#/components/examples/200-sentences-processed-verbose'
     List-of-Questions:
       description: Example response
       content:
@@ -346,41 +448,66 @@ components:
               - output
               - oexp
           examples:
-            example-1:
+            200-questions-verbose-1:
               value:
                 api:
                   version: 1
-                  build: 16
+                  build: 17
                   name: Open Question API
-                timestamp: 1623826813.6222022
+                timestamp: 1625005220.54872
                 input:
                   story: 'In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can''t do this all the time.'
+                  options:
+                    verbose: true
                 output:
                   questions:
-                    - id: 2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c_q00
-                      markdown: 'When saying **I do not like**, if you don''t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.'
-                      html: '<span class="question">When saying <strong class="phrase">I do not like</strong>, if you don''t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.</span>'
-                    - id: 6345f9953880d0d7243e2fd87a413dd82598a94de6c7706c6779acb0_q00
-                      markdown: 'When you say **all the time**, what would you like to have happen instead? Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.'
-                      html: '<span class="question">When you say <strong class="phrase">all the time</strong>, what would you like to have happen instead? Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.</span>'
+                    - id: 2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c_q01
+                      markdown: 'When you say **I do not like**, if you don''t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.'
+                      html: '<span class="question">When you say <strong class="phrase">I do not like</strong>, if you don''t, then what do you like instead?</span><span class="statement">Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.</span>'
+                    - id: 6345f9953880d0d7243e2fd87a413dd82598a94de6c7706c6779acb0_q01
+                      markdown: 'You said **all the time**, what would you like to have happen instead? Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.'
+                      html: '<span class="question">You said <strong class="phrase">all the time</strong>, what would you like to have happen instead?</span><span class="statement">Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.</span>'
                 oexp:
                   verion: 0.9.3
                   privacy: 'https://pocketconfidant.com/privacy/'
                   terms: 'https://pocketconfidant.com/terms/'
-            example-2:
+            200-questions-verbose-2:
               value:
                 api:
                   version: 1
-                  build: 16
+                  build: 17
                   name: Open Question API
-                timestamp: 1623825832.1421797
+                timestamp: 1625005169.312257
                 input:
                   story: 'When in my thoughts I''m coming back to my situation, I''d want make things happen now.'
+                  options:
+                    verbose: true
                 output:
                   questions:
-                    - id: 5e3b233dbaac8fabfdd9357f881b91b9d5cef731ea62abe7e647b029_q00
+                    - id: 5e3b233dbaac8fabfdd9357f881b91b9d5cef731ea62abe7e647b029_q01
                       markdown: 'When saying **back to my**, how can you do that, what specific easily achievable decision or action can you make? Identifying and defining this element will make your path more achievable.'
-                      html: '<span class="question">When saying <strong class="phrase">back to my</strong>, how can you do that, what specific easily achievable decision or action can you make? Identifying and defining this element will make your path more achievable.</span>'
+                      html: '<span class="question">When saying <strong class="phrase">back to my</strong>, how can you do that, what specific easily achievable decision or action can you make?</span><span class="statement">Identifying and defining this element will make your path more achievable.</span>'
+                oexp:
+                  verion: 0.9.3
+                  privacy: 'https://pocketconfidant.com/privacy/'
+                  terms: 'https://pocketconfidant.com/terms/'
+            200-questions-with-statements:
+              value:
+                api:
+                  version: 1
+                  build: 17
+                  name: Open Question API
+                timestamp: 1625005200.7122636
+                input:
+                  story: 'When in my thoughts I''m coming back to my situation, I''d want make things happen now.'
+                  options:
+                    verbose: false
+                output:
+                  questions:
+                    - id: 5e3b233dbaac8fabfdd9357f881b91b9d5cef731ea62abe7e647b029_q01
+                      markdown: 'You said **back to my**, how can you do that, what specific easily achievable decision or action can you make?'
+                      html: '<span class="question">You said <strong class="phrase">back to my</strong>, how can you do that, what specific easily achievable decision or action can you make?</span>'
+                      statement: Identifying and defining this element will make your path more achievable.
                 oexp:
                   verion: 0.9.3
                   privacy: 'https://pocketconfidant.com/privacy/'
@@ -399,6 +526,7 @@ components:
                 type: number
               input:
                 type: object
+                description: complete input object
               output:
                 $ref: '#/components/schemas/Exception'
               oexp:
@@ -467,26 +595,28 @@ components:
           verion: 0.9.3
           privacy: 'https://pocketconfidant.com/privacy/'
           terms: 'https://pocketconfidant.com/terms/'
-    200-sentences-processed:
+    200-sentences-processed-verbose:
       value:
         api:
           version: 1
-          build: 13
+          build: 17
           name: Open Question API
-        timestamp: 1618486191.8156228
+        timestamp: 1625003800.376465
         input:
           story: 'In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can''t do this all the time.'
+          options:
+            verbose: true
         output:
           processed_text: 'In cases, I don’t like intentionally look solution, answer different perspective. Demanding something doesn’t seem lead breakthrough. Humbly yes, surrendering attempts figure own, creates new paths opens doors. I can''t time.'
-          entities: ''
+          entities: []
           sentences:
             - id: 2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c
               markdown: 'In all cases, **I do not like** to intentionally look for a solution, an answer or a different perspective.'
               html: 'In all cases, <strong class="phrase">I do not like</strong> to intentionally look for a solution, an answer or a different perspective.'
               questions:
-                - id: 2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c_q00
-                  markdown: 'When saying **I do not like**, if you don''t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.'
-                  html: '<span class="question">When saying <strong class="phrase">I do not like</strong>, if you don''t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.</span>'
+                - id: 2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c_q01
+                  markdown: 'When you say **I do not like**, if you don''t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.'
+                  html: '<span class="question">When you say <strong class="phrase">I do not like</strong>, if you don''t, then what do you like instead?</span><span class="statement">Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.</span>'
             - id: 861ce447e81754daa07aa9b8cd5706a0655ca314eda4a924d54bff43
               markdown: Demanding something does not seem to lead to a breakthrough.
               html: Demanding something does not seem to lead to a breakthrough.
@@ -499,9 +629,9 @@ components:
               markdown: I just can not do this **all the time**.
               html: I just can not do this <strong class="phrase">all the time</strong>.
               questions:
-                - id: 6345f9953880d0d7243e2fd87a413dd82598a94de6c7706c6779acb0_q00
-                  markdown: 'When saying **all the time**, what would you like to have happen instead? Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.'
-                  html: '<span class="question">When saying <strong class="phrase">all the time</strong>, what would you like to have happen instead? Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.</span>'
+                - id: 6345f9953880d0d7243e2fd87a413dd82598a94de6c7706c6779acb0_q01
+                  markdown: 'When you say **all the time**, what would you like to have happen instead? Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.'
+                  html: '<span class="question">When you say <strong class="phrase">all the time</strong>, what would you like to have happen instead?</span><span class="statement">Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.</span>'
         oexp:
           verion: 0.9.3
           privacy: 'https://pocketconfidant.com/privacy/'
