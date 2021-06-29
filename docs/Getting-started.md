@@ -27,6 +27,10 @@ This is the method to send requests to a REST API endpoint.
 -   **endpoint URL**: <https://oqapi.io/v1/questions>
 -   **request body**
     -   `story`: A text (_string_), typically a size of a paragraph, containing 1-5 sentences of user's story to which questioning should be applied.
+    -   `options`: To control how questions are provided in the response output, options could be used. 
+      verbosity: use {"verbose": false} for compact questions and statements provided separately. Use {"verbose": true} for questions and statements provided in the same varible.
+
+
 
 ```json json_schema
 {
@@ -34,7 +38,15 @@ This is the method to send requests to a REST API endpoint.
   "properties": {
     "story": {
       "type": "string"
-    }
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "verbose": {
+          "type": "boolean"
+        }
+      }
+    },
   }
 }
 ```
