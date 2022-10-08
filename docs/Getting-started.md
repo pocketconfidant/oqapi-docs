@@ -8,7 +8,7 @@ tags: [readme, index, oqapi, api, guide]
 
 > Request access by writitng us about your use-case via [https://pocketconfidant.com/oqapi/](https://pocketconfidant.com/oqapi/)
 
--   You have an application exposed to Internet able to make POST request to a third-party APIs
+-   You have an application exposed to Internet which is able to make POST request to a third-party APIs
 -   Your application works with conversational data
 -   You have obtained the valid API Subscription Key `oqapi-subscription-key` and API Application ID `oqapi-app-id` to access OQAPI.
 
