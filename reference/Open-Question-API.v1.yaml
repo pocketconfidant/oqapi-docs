@@ -23,65 +23,6 @@ paths:
     post:
       summary: POST Sentences and Questions endpoint
       operationId: post-sentences
-      requestBody:
-        content:
-          application/json:
-            schema:
-              description: ''
-              type: object
-              properties:
-                story:
-                  type: string
-                  minLength: 1
-                  description: 'The request body must contain non-empty string `story`, for which the questions will be generated. '
-                options:
-                  type: object
-                  description: To control how questions are provided in the response output
-                  properties:
-                    verbose:
-                      type: boolean
-                      description: '**verbosity**: use `{"verbose": false}` for compact questions and statements provided separately. Use `{"verbose": true}` for questions and statements provided in the same varible.'
-              required:
-                - story
-            examples:
-              example-verbose:
-                value:
-                  story: 'In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can''t do this all the time.'
-                  options:
-                    verbose: true
-              example-compact:
-                value:
-                  story: 'In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can''t do this all the time.'
-                  options:
-                    verbose: false
-          application/xml:
-            schema:
-              type: object
-              properties: {}
-            examples:
-              example-1:
-                value: {}
-          multipart/form-data:
-            schema:
-              type: object
-              properties: {}
-          text/html:
-            schema:
-              type: object
-              properties: {}
-          text/plain:
-            schema:
-              type: object
-              properties: {}
-          application/EDI-X12:
-            schema:
-              type: object
-              properties: {}
-        description: |-
-          For a POST request, you can use the `body` property to pass a JSON string as input. Note that the request body should be a JSON string, while the headers should be a JSON object. The request body must contain non-empty string `story`, for which the questions will be generated. 
-
-          To control how questions are provided in the response output, `options` could be used.
-          * **verbosity**: use `{"verbose": false}` for compact questions and statements provided separately. Use `{"verbose": true}` for questions and statements provided in the same varible.
       parameters:
         - $ref: '#/components/parameters/oqapi-app-id'
         - $ref: '#/components/parameters/oqapi-correlation-id'
@@ -97,67 +38,12 @@ paths:
       tags:
         - Endpoints
         - Question Generation
+      requestBody:
+        $ref: '#/components/requestBodies/Simple-Request-Body-With-Options'
   /questions:
     post:
       summary: POST Questions endpoint
       operationId: post-questions
-      requestBody:
-        content:
-          application/json:
-            schema:
-              description: ''
-              type: object
-              properties:
-                story:
-                  type: string
-                  minLength: 1
-                  description: 'The request body must contain non-empty string `story`, for which the questions will be generated. '
-                options:
-                  type: object
-                  description: To control how questions are provided in the response output
-                  properties:
-                    verbose:
-                      type: boolean
-                      description: '**verbosity**: use `{"verbose": false}` for compact questions and statements provided separately. Use `{"verbose": true}` for questions and statements provided in the same varible.'
-                    filters:
-                      type: object
-                      description: 'Filters allow narrowing down the question output to a specific set of categories: Client-specific, Application-specific, Domain-specific, Type-specific, Sentiment-specific, and Language-specific. Every filter in the request object could be represented by the alphanumeric string or a list of strings.'
-                      properties:
-                        strict:
-                          type: boolean
-                          description: 'When a strict filter is used (strict: true), questions that strictly satisfy filtering criteria are outputted. When a non-strict filter is applied (default), questions will also include generic questions.'
-                        app_intent:
-                          type:
-                            - string
-                            - array
-                          description: app_intent should contain the list of intents that were identified by the client app.
-                          items:
-                            type: string
-              required:
-                - story
-            examples:
-              example-verbose:
-                value:
-                  story: 'When in my thoughts I''m coming back to my situation, I''d want make things happen now.'
-                  options:
-                    verbose: true
-              example-comact:
-                value:
-                  story: 'In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can''t do this all the time.'
-                  options:
-                    verbose: false
-          application/xml:
-            schema:
-              type: object
-              properties: {}
-            examples:
-              example-1:
-                value: {}
-        description: |-
-          For a POST request, you can use the `body` property to pass a JSON string as input. Note that the request body should be a JSON string, while the headers should be a JSON object. The request body must contain non-empty string `story`, for which the questions will be generated. 
-
-          To control how questions are provided in the response output, `options` could be used.
-          * **verbosity**: use `{"verbose": false}` for compact questions and statements provided separately. Use `{"verbose": true}` for questions and statements provided in the same varible.
       parameters:
         - $ref: '#/components/parameters/oqapi-app-id'
         - $ref: '#/components/parameters/oqapi-correlation-id'
@@ -173,6 +59,8 @@ paths:
       tags:
         - Endpoints
         - Question Generation
+      requestBody:
+        $ref: '#/components/requestBodies/Simple-Request-Body-With-Options'
   /wakeup:
     get:
       summary: GET Wake-up endpoint
