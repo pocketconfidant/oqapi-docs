@@ -717,6 +717,7 @@ components:
                   filters:
                     strict: true
                     app_intent: intentLearning
+                    sentiment: 'neutral, positive'
         application/xml:
           schema:
             type: object
