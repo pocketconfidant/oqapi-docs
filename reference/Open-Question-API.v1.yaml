@@ -65,6 +65,18 @@ paths:
             schema:
               type: object
               properties: {}
+          text/html:
+            schema:
+              type: object
+              properties: {}
+          text/plain:
+            schema:
+              type: object
+              properties: {}
+          application/EDI-X12:
+            schema:
+              type: object
+              properties: {}
         description: |-
           For a POST request, you can use the `body` property to pass a JSON string as input. Note that the request body should be a JSON string, while the headers should be a JSON object. The request body must contain non-empty string `story`, for which the questions will be generated. 
 
@@ -77,7 +89,7 @@ paths:
       description: 'Operation retrieves the analyzed text broken down into sentences with generated questions, plus additional metadata, such as timestamp, API versioning, and others. Unlike /questions/ endpoint, requests to /sentences/ endpoint supplies only questions which are specific to linguistic markers detected within each sentence. If the linguistic marker is absent, the output list of questions adjaccent to each sentences might be empty. This endpoint is useful if you want to provide a very context-specific details to your user.'
       responses:
         '200':
-          $ref: '#/components/responses/Sentences-with-Questions-verbose'
+          $ref: '#/components/responses/Sentences-with-Questions'
         '422':
           $ref: '#/components/responses/Exception'
       security:
@@ -697,6 +709,66 @@ components:
         type: string
         format: uuid
       description: Optional header preserved in the response to allow request/response correlation across multiple apps
+  requestBodies:
+    Simple-Request-Body-With-Options:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              story:
+                type: string
+                minLength: 1
+                description: 'The request body must contain non-empty string `story`, for which the questions will be generated. '
+              options:
+                type: object
+                description: To control how questions are provided in the response output
+                properties:
+                  verbose:
+                    type: boolean
+                    description: '**verbosity**: use `{"verbose": false}` for compact questions and statements provided separately. Use `{"verbose": true}` for questions and statements provided in the same varible.'
+                  filters:
+                    type: object
+                    description: 'Filters allow narrowing down the question output to a specific set of categories: Client-specific, Application-specific, Domain-specific, Type-specific, Sentiment-specific, and Language-specific. Every filter in the request object could be represented by the alphanumeric string or a list of strings.'
+                    properties:
+                      strict:
+                        type: boolean
+                        description: 'When a strict filter is used (strict: true), questions that strictly satisfy filtering criteria are outputted. When a non-strict filter is applied (default), questions will also include generic questions.'
+                      app_intent:
+                        type:
+                          - string
+                          - array
+                        description: app_intent should contain the list of intents that were identified by the client app.
+                        items:
+                          type: string
+          examples:
+            example-verbose:
+              value:
+                story: 'In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can''t do this all the time.'
+                options:
+                  verbose: true
+            example-compact:
+              value:
+                story: 'In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can''t do this all the time.'
+                options:
+                  verbose: false
+            example-filters:
+              value:
+                story: 'In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can''t do this all the time.'
+                options:
+                  verbose: false
+                  filters:
+                    strict: true
+                    app_intent: intentLearning
+        application/xml:
+          schema:
+            type: object
+            properties: {}
+      description: |-
+        For a POST request, you can use the `body` property to pass a JSON string as input. Note that the request body should be a JSON string, while the headers should be a JSON object. The request body must contain non-empty string `story`, for which the questions will be generated. 
+
+        To control how questions are provided in the response output, `options` could be used.
+        * **verbosity**: use `{"verbose": false}` for compact questions and statements provided separately. Use `{"verbose": true}` for questions and statements provided in the same varible.
 tags:
   - name: NLG
   - name: NLP
