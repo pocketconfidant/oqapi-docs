@@ -610,7 +610,7 @@ components:
                 description: 'The request body must contain non-empty string `story`, for which the questions will be generated. '
               options:
                 type: object
-                description: To control how questions are provided in the response output
+                description: To control how questions are provided in the response output.
                 properties:
                   verbose:
                     type: boolean
@@ -627,6 +627,75 @@ components:
                           - string
                           - array
                         description: app_intent should contain the list of intents that were identified by the client app.
+                        items:
+                          type: string
+                      app_stage:
+                        type:
+                          - string
+                          - array
+                        description: Defined by the UX of the client app
+                        items:
+                          type: string
+                      field:
+                        type:
+                          - string
+                          - array
+                        description: 'Defined by the app focus and its unique value proposition. It typically will contain only one domain, but sometimes it might be needed to include several domains.'
+                        items:
+                          type: string
+                      topic:
+                        type:
+                          - string
+                          - array
+                        description: Defined by the UX of the client app. Will typically contain one or several topics within a filed to address more narrow contexts than the field itself.
+                        items:
+                          type: string
+                      methodology:
+                        type:
+                          - string
+                          - array
+                        description: Defined by the coaching approach and could be customized for different cases.
+                        items:
+                          type: string
+                      category:
+                        description: A category within the coaching methodology.
+                        type:
+                          - string
+                          - array
+                        items:
+                          type: string
+                      structure:
+                        type:
+                          - string
+                          - array
+                        description: 'A question structure with an active primary trigger. Enum, pre-defined list, example: [“what”, “how”, “when”]'
+                        enum:
+                          - what
+                          - how
+                          - when
+                          - who
+                          - where
+                          - how many
+                          - how often
+                          - why
+                        items:
+                          type: string
+                      scope:
+                        type:
+                          - string
+                          - array
+                        description: 'A filter specifying the purpose of asking the question, for a better UX integration.'
+                        items:
+                          type: string
+                      sentiment:
+                        type:
+                          - string
+                          - array
+                        description: 'A class, obtained by the client app that narrows down the API response to a specific sentiment.'
+                        enum:
+                          - negative
+                          - positive
+                          - neutral
                         items:
                           type: string
           examples:
