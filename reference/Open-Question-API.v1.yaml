@@ -107,6 +107,20 @@ paths:
                     verbose:
                       type: boolean
                       description: '**verbosity**: use `{"verbose": false}` for compact questions and statements provided separately. Use `{"verbose": true}` for questions and statements provided in the same varible.'
+                    filters:
+                      type: object
+                      description: 'Filters allow narrowing down the question output to a specific set of categories: Client-specific, Application-specific, Domain-specific, Type-specific, Sentiment-specific, and Language-specific. Every filter in the request object could be represented by the alphanumeric string or a list of strings.'
+                      properties:
+                        strict:
+                          type: boolean
+                          description: 'When a strict filter is used (strict: true), questions that strictly satisfy filtering criteria are outputted. When a non-strict filter is applied (default), questions will also include generic questions.'
+                        app_intent:
+                          type:
+                            - string
+                            - array
+                          description: app_intent should contain the list of intents that were identified by the client app.
+                          items:
+                            type: string
               required:
                 - story
             examples:
