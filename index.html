@@ -1,0 +1,1018 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Open Question API</title>
+    <style type="text/css">
+      body {
+      	font-family: Trebuchet MS, sans-serif;
+      	font-size: 15px;
+      	color: #444;
+      	margin-right: 24px;
+      }
+      
+      h1	{
+      	font-size: 25px;
+      }
+      h2	{
+      	font-size: 20px;
+      }
+      h3	{
+      	font-size: 16px;
+      	font-weight: bold;
+      }
+      hr	{
+      	height: 1px;
+      	border: 0;
+      	color: #ddd;
+      	background-color: #ddd;
+      }
+      
+      .app-desc {
+        clear: both;
+        margin-left: 20px;
+      }
+      .param-name {
+        width: 100%;
+      }
+      .license-info {
+        margin-left: 20px;
+      }
+      
+      .license-url {
+        margin-left: 20px;
+      }
+      
+      .model {
+        margin: 0 0 0px 20px;
+      }
+      
+      .method {
+        margin-left: 20px;
+      }
+      
+      .method-notes	{
+      	margin: 10px 0 20px 0;
+      	font-size: 90%;
+      	color: #555;
+      }
+      
+      pre {
+        padding: 10px;
+        margin-bottom: 2px;
+      }
+      
+      .http-method {
+       text-transform: uppercase;
+      }
+      
+      pre.get {
+        background-color: #0f6ab4;
+      }
+      
+      pre.post {
+        background-color: #10a54a;
+      }
+      
+      pre.put {
+        background-color: #c5862b;
+      }
+      
+      pre.delete {
+        background-color: #a41e22;
+      }
+      
+      .huge	{
+      	color: #fff;
+      }
+      
+      pre.example {
+        background-color: #f3f3f3;
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+      
+      code {
+        white-space: pre;
+      }
+      
+      .nickname {
+        font-weight: bold;
+      }
+      
+      .method-path {
+        font-size: 1.5em;
+        background-color: #0f6ab4;
+      }
+      
+      .up {
+        float:right;
+      }
+      
+      .parameter {
+        width: 500px;
+      }
+      
+      .param {
+        width: 500px;
+        padding: 10px 0 0 20px;
+        font-weight: bold;
+      }
+      
+      .param-desc {
+        width: 700px;
+        padding: 0 0 0 20px;
+        color: #777;
+      }
+      
+      .param-type {
+        font-style: italic;
+      }
+      
+      .param-enum-header {
+      width: 700px;
+      padding: 0 0 0 60px;
+      color: #777;
+      font-weight: bold;
+      }
+      
+      .param-enum {
+      width: 700px;
+      padding: 0 0 0 80px;
+      color: #777;
+      font-style: italic;
+      }
+      
+      .field-label {
+        padding: 0;
+        margin: 0;
+        clear: both;
+      }
+      
+      .field-items	{
+      	padding: 0 0 15px 0;
+      	margin-bottom: 15px;
+      }
+      
+      .return-type {
+        clear: both;
+        padding-bottom: 10px;
+      }
+      
+      .param-header {
+        font-weight: bold;
+      }
+      
+      .method-tags {
+        text-align: right;
+      }
+      
+      .method-tag {
+        background: none repeat scroll 0% 0% #24A600;
+        border-radius: 3px;
+        padding: 2px 10px;
+        margin: 2px;
+        color: #FFF;
+        display: inline-block;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>Open Question API</h1>
+    <div class="app-desc"><p><strong>Open Question API (OQAPI)</strong> is the question-generation technology from questioning.ai family. It is embedded into a REST API interface. It is built with the purpose to enable coaching questioning capabilities in software or hypbrid hardware/software systems. The examples are learning management systems (LMS), chatbot assistants, human-assisted applications, assistive robotics, and others.</p>
+<blockquote>
+<p>Request access by writitng us about your use-case via <a href="https://pocketconfidant.com/oqapi/">https://pocketconfidant.com/oqapi/</a></p>
+</blockquote>
+<p>All questioning.ai documentation is available via https://docs.questioning.ai</p>
+<p>questioning.ai is owned and managed by <a href="https://pocketconfidant.com">PocketConfidant AI SAS</a></p>
+</div>
+    <div class="app-desc">More information: <a href="https://pocketconfidant.com/contact/">https://pocketconfidant.com/contact/</a></div>
+    <div class="app-desc">Contact Info: <a href="oqapi@questioning.ai">oqapi@questioning.ai</a></div>
+    <div class="app-desc">Version: 1.0</div>
+    <div class="app-desc">BasePath:/v1</div>
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+    <ol>
+      <li>APIKey KeyParamName:oqapi-subscription-key KeyInQuery:false KeyInHeader:true</li>
+    </ol>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Availability">Availability</a></h4>
+  <ul>
+  <li><a href="#getWakeup"><code><span class="http-method">get</span> /wakeup</code></a></li>
+  </ul>
+  <h4><a href="#Endpoints">Endpoints</a></h4>
+  <ul>
+  <li><a href="#getWakeup"><code><span class="http-method">get</span> /wakeup</code></a></li>
+  <li><a href="#postQuestions"><code><span class="http-method">post</span> /questions</code></a></li>
+  <li><a href="#postSentences"><code><span class="http-method">post</span> /sentences</code></a></li>
+  </ul>
+  <h4><a href="#QuestionGeneration">QuestionGeneration</a></h4>
+  <ul>
+  <li><a href="#postQuestions"><code><span class="http-method">post</span> /questions</code></a></li>
+  <li><a href="#postSentences"><code><span class="http-method">post</span> /sentences</code></a></li>
+  </ul>
+
+  <h1><a name="Availability">Availability</a></h1>
+  <div class="method"><a name="getWakeup"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /wakeup</code></pre></div>
+    <div class="method-summary">GET Wake-up endpoint (<span class="nickname">getWakeup</span>)</div>
+    <div class="method-notes">Sending this request allows to minimize response time of the OQAPI thanks to waking it up before sending the actual request.</div>
+
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200_2">inline_response_200_2</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "output" : {
+    "successMessage" : "successMessage",
+    "statusCode" : 6.027456183070403
+  },
+  "input" : "input",
+  "api" : {
+    "build" : 6.027456183070403,
+    "name" : "name",
+    "version" : 0.8008281904610115
+  },
+  "oexp" : {
+    "verion" : "verion",
+    "terms" : "terms",
+    "privacy" : "privacy"
+  },
+  "timestamp" : 0.8008281904610115
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Example response
+        <a href="#inline_response_200_2">inline_response_200_2</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: example-1</div>
+    <pre class="example"><code></code></pre>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Endpoints">Endpoints</a></h1>
+  <div class="method"><a name="getWakeup"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /wakeup</code></pre></div>
+    <div class="method-summary">GET Wake-up endpoint (<span class="nickname">getWakeup</span>)</div>
+    <div class="method-notes">Sending this request allows to minimize response time of the OQAPI thanks to waking it up before sending the actual request.</div>
+
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200_2">inline_response_200_2</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "output" : {
+    "successMessage" : "successMessage",
+    "statusCode" : 6.027456183070403
+  },
+  "input" : "input",
+  "api" : {
+    "build" : 6.027456183070403,
+    "name" : "name",
+    "version" : 0.8008281904610115
+  },
+  "oexp" : {
+    "verion" : "verion",
+    "terms" : "terms",
+    "privacy" : "privacy"
+  },
+  "timestamp" : 0.8008281904610115
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Example response
+        <a href="#inline_response_200_2">inline_response_200_2</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: example-1</div>
+    <pre class="example"><code></code></pre>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="postQuestions"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /questions</code></pre></div>
+    <div class="method-summary">POST Questions endpoint (<span class="nickname">postQuestions</span>)</div>
+    <div class="method-notes">Operation retrieves the list of generated questions, plus additional metadata, such as timestamp, API versioning, and others. Unlike /sentences/ endpoint, requests to /questions/ endpoint will always supply one or multiple questions. These questions are either specific to linguistic markers, or generic, without the referrence to a phrase.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>application/xml</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#object">object</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; &lt;p&gt;For a POST request, you can use the &lt;code&gt;body&lt;/code&gt; property to pass a JSON string as input. Note that the request body should be a JSON string, while the headers should be a JSON object. The request body must contain non-empty string &lt;code&gt;story&lt;/code&gt;, for which the questions will be generated.&lt;/p&gt;
+&lt;p&gt;To control how questions are provided in the response output, &lt;code&gt;options&lt;/code&gt; could be used.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;verbosity&lt;/strong&gt;: use &lt;code&gt;{&amp;quot;verbose&amp;quot;: false}&lt;/code&gt; for compact questions and statements provided separately. Use &lt;code&gt;{&amp;quot;verbose&amp;quot;: true}&lt;/code&gt; for questions and statements provided in the same varible.&lt;/li&gt;
+&lt;/ul&gt;
+ </div>
+            <div class="param-desc"><span class="param-type">example: <code>{
+  &quot;value&quot; : {
+    &quot;story&quot; : &quot;In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can&#x27;t do this all the time.&quot;,
+    &quot;options&quot; : {
+      &quot;verbose&quot; : true
+    }
+  }
+}</code></span></div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200_1">inline_response_200_1</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "output" : {
+    "questions" : [ {
+      "phrase" : "phrase",
+      "domain" : "domain",
+      "scope" : "scope",
+      "markdown" : "markdown",
+      "statement" : "statement",
+      "html" : "html",
+      "id" : "id",
+      "type" : "type",
+      "methodology" : "methodology"
+    }, {
+      "phrase" : "phrase",
+      "domain" : "domain",
+      "scope" : "scope",
+      "markdown" : "markdown",
+      "statement" : "statement",
+      "html" : "html",
+      "id" : "id",
+      "type" : "type",
+      "methodology" : "methodology"
+    } ]
+  },
+  "input" : {
+    "story" : "story"
+  },
+  "api" : {
+    "build" : 6.027456183070403,
+    "name" : "name",
+    "version" : 0.8008281904610115
+  },
+  "oexp" : {
+    "verion" : "verion",
+    "terms" : "terms",
+    "privacy" : "privacy"
+  },
+  "timestamp" : 0.8008281904610115
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Example response
+        <a href="#inline_response_200_1">inline_response_200_1</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: 200-questions-with-statements</div>
+    <pre class="example"><code>{&quot;api&quot;:{&quot;version&quot;:1,&quot;build&quot;:17,&quot;name&quot;:&quot;Open Question API&quot;},&quot;timestamp&quot;:1.6250052007122636E9,&quot;input&quot;:{&quot;story&quot;:&quot;When in my thoughts I&#x27;m coming back to my situation, I&#x27;d want make things happen now.&quot;,&quot;options&quot;:{&quot;verbose&quot;:false}},&quot;output&quot;:{&quot;questions&quot;:[{&quot;id&quot;:&quot;5e3b233dbaac8fabfdd9357f881b91b9d5cef731ea62abe7e647b029_q01&quot;,&quot;markdown&quot;:&quot;You said **back to my**, how can you do that, what specific easily achievable decision or action can you make?&quot;,&quot;html&quot;:&quot;&lt;span class&#x3D;\&quot;question\&quot;&gt;You said &lt;strong class&#x3D;\&quot;phrase\&quot;&gt;back to my&lt;/strong&gt;, how can you do that, what specific easily achievable decision or action can you make?&lt;/span&gt;&quot;,&quot;statement&quot;:&quot;Identifying and defining this element will make your path more achievable.&quot;}]},&quot;oexp&quot;:{&quot;verion&quot;:&quot;0.9.3&quot;,&quot;privacy&quot;:&quot;https://pocketconfidant.com/privacy/&quot;,&quot;terms&quot;:&quot;https://pocketconfidant.com/terms/&quot;}}</code></pre>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: 200-questions-verbose-1</div>
+    <pre class="example"><code>{&quot;api&quot;:{&quot;version&quot;:1,&quot;build&quot;:17,&quot;name&quot;:&quot;Open Question API&quot;},&quot;timestamp&quot;:1.62500522054872E9,&quot;input&quot;:{&quot;story&quot;:&quot;In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can&#x27;t do this all the time.&quot;,&quot;options&quot;:{&quot;verbose&quot;:true}},&quot;output&quot;:{&quot;questions&quot;:[{&quot;id&quot;:&quot;2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c_q01&quot;,&quot;markdown&quot;:&quot;When you say **I do not like**, if you don&#x27;t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.&quot;,&quot;html&quot;:&quot;&lt;span class&#x3D;\&quot;question\&quot;&gt;When you say &lt;strong class&#x3D;\&quot;phrase\&quot;&gt;I do not like&lt;/strong&gt;, if you don&#x27;t, then what do you like instead?&lt;/span&gt;&lt;span class&#x3D;\&quot;statement\&quot;&gt;Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.&lt;/span&gt;&quot;},{&quot;id&quot;:&quot;6345f9953880d0d7243e2fd87a413dd82598a94de6c7706c6779acb0_q01&quot;,&quot;markdown&quot;:&quot;You said **all the time**, what would you like to have happen instead? Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.&quot;,&quot;html&quot;:&quot;&lt;span class&#x3D;\&quot;question\&quot;&gt;You said &lt;strong class&#x3D;\&quot;phrase\&quot;&gt;all the time&lt;/strong&gt;, what would you like to have happen instead?&lt;/span&gt;&lt;span class&#x3D;\&quot;statement\&quot;&gt;Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.&lt;/span&gt;&quot;}]},&quot;oexp&quot;:{&quot;verion&quot;:&quot;0.9.3&quot;,&quot;privacy&quot;:&quot;https://pocketconfidant.com/privacy/&quot;,&quot;terms&quot;:&quot;https://pocketconfidant.com/terms/&quot;}}</code></pre>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: 200-questions-verbose-2</div>
+    <pre class="example"><code>{&quot;api&quot;:{&quot;version&quot;:1,&quot;build&quot;:17,&quot;name&quot;:&quot;Open Question API&quot;},&quot;timestamp&quot;:1.625005169312257E9,&quot;input&quot;:{&quot;story&quot;:&quot;When in my thoughts I&#x27;m coming back to my situation, I&#x27;d want make things happen now.&quot;,&quot;options&quot;:{&quot;verbose&quot;:true}},&quot;output&quot;:{&quot;questions&quot;:[{&quot;id&quot;:&quot;5e3b233dbaac8fabfdd9357f881b91b9d5cef731ea62abe7e647b029_q01&quot;,&quot;markdown&quot;:&quot;When saying **back to my**, how can you do that, what specific easily achievable decision or action can you make? Identifying and defining this element will make your path more achievable.&quot;,&quot;html&quot;:&quot;&lt;span class&#x3D;\&quot;question\&quot;&gt;When saying &lt;strong class&#x3D;\&quot;phrase\&quot;&gt;back to my&lt;/strong&gt;, how can you do that, what specific easily achievable decision or action can you make?&lt;/span&gt;&lt;span class&#x3D;\&quot;statement\&quot;&gt;Identifying and defining this element will make your path more achievable.&lt;/span&gt;&quot;}]},&quot;oexp&quot;:{&quot;verion&quot;:&quot;0.9.3&quot;,&quot;privacy&quot;:&quot;https://pocketconfidant.com/privacy/&quot;,&quot;terms&quot;:&quot;https://pocketconfidant.com/terms/&quot;}}</code></pre>
+    <h4 class="field-label">422</h4>
+    Example response
+        <a href="#inline_response_422">inline_response_422</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: example-1</div>
+    <pre class="example"><code></code></pre>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="postSentences"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /sentences</code></pre></div>
+    <div class="method-summary">POST Sentences and Questions endpoint (<span class="nickname">postSentences</span>)</div>
+    <div class="method-notes">Operation retrieves the analyzed text broken down into sentences with generated questions, plus additional metadata, such as timestamp, API versioning, and others. Unlike /questions/ endpoint, requests to /sentences/ endpoint supplies only questions which are specific to linguistic markers detected within each sentence. If the linguistic marker is absent, the output list of questions adjaccent to each sentences might be empty. This endpoint is useful if you want to provide a very context-specific details to your user.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>application/xml</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#object">object</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; &lt;p&gt;For a POST request, you can use the &lt;code&gt;body&lt;/code&gt; property to pass a JSON string as input. Note that the request body should be a JSON string, while the headers should be a JSON object. The request body must contain non-empty string &lt;code&gt;story&lt;/code&gt;, for which the questions will be generated.&lt;/p&gt;
+&lt;p&gt;To control how questions are provided in the response output, &lt;code&gt;options&lt;/code&gt; could be used.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;verbosity&lt;/strong&gt;: use &lt;code&gt;{&amp;quot;verbose&amp;quot;: false}&lt;/code&gt; for compact questions and statements provided separately. Use &lt;code&gt;{&amp;quot;verbose&amp;quot;: true}&lt;/code&gt; for questions and statements provided in the same varible.&lt;/li&gt;
+&lt;/ul&gt;
+ </div>
+            <div class="param-desc"><span class="param-type">example: <code>{
+  &quot;value&quot; : {
+    &quot;story&quot; : &quot;In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can&#x27;t do this all the time.&quot;,
+    &quot;options&quot; : {
+      &quot;verbose&quot; : true
+    }
+  }
+}</code></span></div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200">inline_response_200</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "output" : {
+    "sentences" : [ {
+      "markdown" : "markdown",
+      "questions" : [ {
+        "phrase" : "phrase",
+        "domain" : "domain",
+        "scope" : "scope",
+        "markdown" : "markdown",
+        "statement" : "statement",
+        "html" : "html",
+        "id" : "id",
+        "type" : "type",
+        "methodology" : "methodology"
+      }, {
+        "phrase" : "phrase",
+        "domain" : "domain",
+        "scope" : "scope",
+        "markdown" : "markdown",
+        "statement" : "statement",
+        "html" : "html",
+        "id" : "id",
+        "type" : "type",
+        "methodology" : "methodology"
+      } ],
+      "html" : "html",
+      "id" : "id"
+    }, {
+      "markdown" : "markdown",
+      "questions" : [ {
+        "phrase" : "phrase",
+        "domain" : "domain",
+        "scope" : "scope",
+        "markdown" : "markdown",
+        "statement" : "statement",
+        "html" : "html",
+        "id" : "id",
+        "type" : "type",
+        "methodology" : "methodology"
+      }, {
+        "phrase" : "phrase",
+        "domain" : "domain",
+        "scope" : "scope",
+        "markdown" : "markdown",
+        "statement" : "statement",
+        "html" : "html",
+        "id" : "id",
+        "type" : "type",
+        "methodology" : "methodology"
+      } ],
+      "html" : "html",
+      "id" : "id"
+    } ]
+  },
+  "input" : {
+    "story" : "story"
+  },
+  "api" : {
+    "build" : 6.027456183070403,
+    "name" : "name",
+    "version" : 0.8008281904610115
+  },
+  "oexp" : {
+    "verion" : "verion",
+    "terms" : "terms",
+    "privacy" : "privacy"
+  },
+  "timestamp" : 1.4658129805029452
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Example response
+        <a href="#inline_response_200">inline_response_200</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: 200-sentences-processed-with-statements</div>
+    <pre class="example"><code>{&quot;api&quot;:{&quot;version&quot;:1,&quot;build&quot;:17,&quot;name&quot;:&quot;Open Question API&quot;},&quot;timestamp&quot;:1.6250040037487648E9,&quot;input&quot;:{&quot;story&quot;:&quot;In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can&#x27;t do this all the time.&quot;,&quot;options&quot;:{&quot;verbose&quot;:false}},&quot;output&quot;:{&quot;processed_text&quot;:&quot;In cases, I don’t like intentionally look solution, answer different perspective. Demanding something doesn’t seem lead breakthrough. Humbly yes, surrendering attempts figure own, creates new paths opens doors. I can&#x27;t time.&quot;,&quot;entities&quot;:[],&quot;sentences&quot;:[{&quot;id&quot;:&quot;2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c&quot;,&quot;markdown&quot;:&quot;In all cases, **I do not like** to intentionally look for a solution, an answer or a different perspective.&quot;,&quot;html&quot;:&quot;In all cases, &lt;strong class&#x3D;\&quot;phrase\&quot;&gt;I do not like&lt;/strong&gt; to intentionally look for a solution, an answer or a different perspective.&quot;,&quot;questions&quot;:[{&quot;id&quot;:&quot;2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c_q01&quot;,&quot;markdown&quot;:&quot;When saying **I do not like**, if you don&#x27;t, then what do you like instead?&quot;,&quot;html&quot;:&quot;&lt;span class&#x3D;\&quot;question\&quot;&gt;When saying &lt;strong class&#x3D;\&quot;phrase\&quot;&gt;I do not like&lt;/strong&gt;, if you don&#x27;t, then what do you like instead?&lt;/span&gt;&quot;,&quot;statement&quot;:&quot;Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.&quot;}]},{&quot;id&quot;:&quot;861ce447e81754daa07aa9b8cd5706a0655ca314eda4a924d54bff43&quot;,&quot;markdown&quot;:&quot;Demanding something does not seem to lead to a breakthrough.&quot;,&quot;html&quot;:&quot;Demanding something does not seem to lead to a breakthrough.&quot;,&quot;questions&quot;:[]},{&quot;id&quot;:&quot;5606a1ab45363a8316589fd2bbfdd5cdabd6dc7f58bb07a7e482f75c&quot;,&quot;markdown&quot;:&quot;Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors.&quot;,&quot;html&quot;:&quot;Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors.&quot;,&quot;questions&quot;:[]},{&quot;id&quot;:&quot;6345f9953880d0d7243e2fd87a413dd82598a94de6c7706c6779acb0&quot;,&quot;markdown&quot;:&quot;I just can not do this **all the time**.&quot;,&quot;html&quot;:&quot;I just can not do this &lt;strong class&#x3D;\&quot;phrase\&quot;&gt;all the time&lt;/strong&gt;.&quot;,&quot;questions&quot;:[{&quot;id&quot;:&quot;6345f9953880d0d7243e2fd87a413dd82598a94de6c7706c6779acb0_q01&quot;,&quot;markdown&quot;:&quot;When saying **all the time**, what would you like to have happen instead?&quot;,&quot;html&quot;:&quot;&lt;span class&#x3D;\&quot;question\&quot;&gt;When saying &lt;strong class&#x3D;\&quot;phrase\&quot;&gt;all the time&lt;/strong&gt;, what would you like to have happen instead?&lt;/span&gt;&quot;,&quot;statement&quot;:&quot;Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.&quot;}]}]},&quot;oexp&quot;:{&quot;verion&quot;:&quot;0.9.3&quot;,&quot;privacy&quot;:&quot;https://pocketconfidant.com/privacy/&quot;,&quot;terms&quot;:&quot;https://pocketconfidant.com/terms/&quot;}}</code></pre>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: 200-sentences-processed-verbose</div>
+    <pre class="example"><code></code></pre>
+    <h4 class="field-label">422</h4>
+    Example response
+        <a href="#inline_response_422">inline_response_422</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: example-1</div>
+    <pre class="example"><code></code></pre>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="QuestionGeneration">QuestionGeneration</a></h1>
+  <div class="method"><a name="postQuestions"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /questions</code></pre></div>
+    <div class="method-summary">POST Questions endpoint (<span class="nickname">postQuestions</span>)</div>
+    <div class="method-notes">Operation retrieves the list of generated questions, plus additional metadata, such as timestamp, API versioning, and others. Unlike /sentences/ endpoint, requests to /questions/ endpoint will always supply one or multiple questions. These questions are either specific to linguistic markers, or generic, without the referrence to a phrase.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>application/xml</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#object">object</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; &lt;p&gt;For a POST request, you can use the &lt;code&gt;body&lt;/code&gt; property to pass a JSON string as input. Note that the request body should be a JSON string, while the headers should be a JSON object. The request body must contain non-empty string &lt;code&gt;story&lt;/code&gt;, for which the questions will be generated.&lt;/p&gt;
+&lt;p&gt;To control how questions are provided in the response output, &lt;code&gt;options&lt;/code&gt; could be used.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;verbosity&lt;/strong&gt;: use &lt;code&gt;{&amp;quot;verbose&amp;quot;: false}&lt;/code&gt; for compact questions and statements provided separately. Use &lt;code&gt;{&amp;quot;verbose&amp;quot;: true}&lt;/code&gt; for questions and statements provided in the same varible.&lt;/li&gt;
+&lt;/ul&gt;
+ </div>
+            <div class="param-desc"><span class="param-type">example: <code>{
+  &quot;value&quot; : {
+    &quot;story&quot; : &quot;In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can&#x27;t do this all the time.&quot;,
+    &quot;options&quot; : {
+      &quot;verbose&quot; : true
+    }
+  }
+}</code></span></div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200_1">inline_response_200_1</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "output" : {
+    "questions" : [ {
+      "phrase" : "phrase",
+      "domain" : "domain",
+      "scope" : "scope",
+      "markdown" : "markdown",
+      "statement" : "statement",
+      "html" : "html",
+      "id" : "id",
+      "type" : "type",
+      "methodology" : "methodology"
+    }, {
+      "phrase" : "phrase",
+      "domain" : "domain",
+      "scope" : "scope",
+      "markdown" : "markdown",
+      "statement" : "statement",
+      "html" : "html",
+      "id" : "id",
+      "type" : "type",
+      "methodology" : "methodology"
+    } ]
+  },
+  "input" : {
+    "story" : "story"
+  },
+  "api" : {
+    "build" : 6.027456183070403,
+    "name" : "name",
+    "version" : 0.8008281904610115
+  },
+  "oexp" : {
+    "verion" : "verion",
+    "terms" : "terms",
+    "privacy" : "privacy"
+  },
+  "timestamp" : 0.8008281904610115
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Example response
+        <a href="#inline_response_200_1">inline_response_200_1</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: 200-questions-with-statements</div>
+    <pre class="example"><code>{&quot;api&quot;:{&quot;version&quot;:1,&quot;build&quot;:17,&quot;name&quot;:&quot;Open Question API&quot;},&quot;timestamp&quot;:1.6250052007122636E9,&quot;input&quot;:{&quot;story&quot;:&quot;When in my thoughts I&#x27;m coming back to my situation, I&#x27;d want make things happen now.&quot;,&quot;options&quot;:{&quot;verbose&quot;:false}},&quot;output&quot;:{&quot;questions&quot;:[{&quot;id&quot;:&quot;5e3b233dbaac8fabfdd9357f881b91b9d5cef731ea62abe7e647b029_q01&quot;,&quot;markdown&quot;:&quot;You said **back to my**, how can you do that, what specific easily achievable decision or action can you make?&quot;,&quot;html&quot;:&quot;&lt;span class&#x3D;\&quot;question\&quot;&gt;You said &lt;strong class&#x3D;\&quot;phrase\&quot;&gt;back to my&lt;/strong&gt;, how can you do that, what specific easily achievable decision or action can you make?&lt;/span&gt;&quot;,&quot;statement&quot;:&quot;Identifying and defining this element will make your path more achievable.&quot;}]},&quot;oexp&quot;:{&quot;verion&quot;:&quot;0.9.3&quot;,&quot;privacy&quot;:&quot;https://pocketconfidant.com/privacy/&quot;,&quot;terms&quot;:&quot;https://pocketconfidant.com/terms/&quot;}}</code></pre>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: 200-questions-verbose-1</div>
+    <pre class="example"><code>{&quot;api&quot;:{&quot;version&quot;:1,&quot;build&quot;:17,&quot;name&quot;:&quot;Open Question API&quot;},&quot;timestamp&quot;:1.62500522054872E9,&quot;input&quot;:{&quot;story&quot;:&quot;In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can&#x27;t do this all the time.&quot;,&quot;options&quot;:{&quot;verbose&quot;:true}},&quot;output&quot;:{&quot;questions&quot;:[{&quot;id&quot;:&quot;2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c_q01&quot;,&quot;markdown&quot;:&quot;When you say **I do not like**, if you don&#x27;t, then what do you like instead? Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.&quot;,&quot;html&quot;:&quot;&lt;span class&#x3D;\&quot;question\&quot;&gt;When you say &lt;strong class&#x3D;\&quot;phrase\&quot;&gt;I do not like&lt;/strong&gt;, if you don&#x27;t, then what do you like instead?&lt;/span&gt;&lt;span class&#x3D;\&quot;statement\&quot;&gt;Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.&lt;/span&gt;&quot;},{&quot;id&quot;:&quot;6345f9953880d0d7243e2fd87a413dd82598a94de6c7706c6779acb0_q01&quot;,&quot;markdown&quot;:&quot;You said **all the time**, what would you like to have happen instead? Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.&quot;,&quot;html&quot;:&quot;&lt;span class&#x3D;\&quot;question\&quot;&gt;You said &lt;strong class&#x3D;\&quot;phrase\&quot;&gt;all the time&lt;/strong&gt;, what would you like to have happen instead?&lt;/span&gt;&lt;span class&#x3D;\&quot;statement\&quot;&gt;Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.&lt;/span&gt;&quot;}]},&quot;oexp&quot;:{&quot;verion&quot;:&quot;0.9.3&quot;,&quot;privacy&quot;:&quot;https://pocketconfidant.com/privacy/&quot;,&quot;terms&quot;:&quot;https://pocketconfidant.com/terms/&quot;}}</code></pre>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: 200-questions-verbose-2</div>
+    <pre class="example"><code>{&quot;api&quot;:{&quot;version&quot;:1,&quot;build&quot;:17,&quot;name&quot;:&quot;Open Question API&quot;},&quot;timestamp&quot;:1.625005169312257E9,&quot;input&quot;:{&quot;story&quot;:&quot;When in my thoughts I&#x27;m coming back to my situation, I&#x27;d want make things happen now.&quot;,&quot;options&quot;:{&quot;verbose&quot;:true}},&quot;output&quot;:{&quot;questions&quot;:[{&quot;id&quot;:&quot;5e3b233dbaac8fabfdd9357f881b91b9d5cef731ea62abe7e647b029_q01&quot;,&quot;markdown&quot;:&quot;When saying **back to my**, how can you do that, what specific easily achievable decision or action can you make? Identifying and defining this element will make your path more achievable.&quot;,&quot;html&quot;:&quot;&lt;span class&#x3D;\&quot;question\&quot;&gt;When saying &lt;strong class&#x3D;\&quot;phrase\&quot;&gt;back to my&lt;/strong&gt;, how can you do that, what specific easily achievable decision or action can you make?&lt;/span&gt;&lt;span class&#x3D;\&quot;statement\&quot;&gt;Identifying and defining this element will make your path more achievable.&lt;/span&gt;&quot;}]},&quot;oexp&quot;:{&quot;verion&quot;:&quot;0.9.3&quot;,&quot;privacy&quot;:&quot;https://pocketconfidant.com/privacy/&quot;,&quot;terms&quot;:&quot;https://pocketconfidant.com/terms/&quot;}}</code></pre>
+    <h4 class="field-label">422</h4>
+    Example response
+        <a href="#inline_response_422">inline_response_422</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: example-1</div>
+    <pre class="example"><code></code></pre>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="postSentences"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /sentences</code></pre></div>
+    <div class="method-summary">POST Sentences and Questions endpoint (<span class="nickname">postSentences</span>)</div>
+    <div class="method-notes">Operation retrieves the analyzed text broken down into sentences with generated questions, plus additional metadata, such as timestamp, API versioning, and others. Unlike /questions/ endpoint, requests to /sentences/ endpoint supplies only questions which are specific to linguistic markers detected within each sentence. If the linguistic marker is absent, the output list of questions adjaccent to each sentences might be empty. This endpoint is useful if you want to provide a very context-specific details to your user.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>application/xml</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#object">object</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; &lt;p&gt;For a POST request, you can use the &lt;code&gt;body&lt;/code&gt; property to pass a JSON string as input. Note that the request body should be a JSON string, while the headers should be a JSON object. The request body must contain non-empty string &lt;code&gt;story&lt;/code&gt;, for which the questions will be generated.&lt;/p&gt;
+&lt;p&gt;To control how questions are provided in the response output, &lt;code&gt;options&lt;/code&gt; could be used.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;verbosity&lt;/strong&gt;: use &lt;code&gt;{&amp;quot;verbose&amp;quot;: false}&lt;/code&gt; for compact questions and statements provided separately. Use &lt;code&gt;{&amp;quot;verbose&amp;quot;: true}&lt;/code&gt; for questions and statements provided in the same varible.&lt;/li&gt;
+&lt;/ul&gt;
+ </div>
+            <div class="param-desc"><span class="param-type">example: <code>{
+  &quot;value&quot; : {
+    &quot;story&quot; : &quot;In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can&#x27;t do this all the time.&quot;,
+    &quot;options&quot; : {
+      &quot;verbose&quot; : true
+    }
+  }
+}</code></span></div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200">inline_response_200</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "output" : {
+    "sentences" : [ {
+      "markdown" : "markdown",
+      "questions" : [ {
+        "phrase" : "phrase",
+        "domain" : "domain",
+        "scope" : "scope",
+        "markdown" : "markdown",
+        "statement" : "statement",
+        "html" : "html",
+        "id" : "id",
+        "type" : "type",
+        "methodology" : "methodology"
+      }, {
+        "phrase" : "phrase",
+        "domain" : "domain",
+        "scope" : "scope",
+        "markdown" : "markdown",
+        "statement" : "statement",
+        "html" : "html",
+        "id" : "id",
+        "type" : "type",
+        "methodology" : "methodology"
+      } ],
+      "html" : "html",
+      "id" : "id"
+    }, {
+      "markdown" : "markdown",
+      "questions" : [ {
+        "phrase" : "phrase",
+        "domain" : "domain",
+        "scope" : "scope",
+        "markdown" : "markdown",
+        "statement" : "statement",
+        "html" : "html",
+        "id" : "id",
+        "type" : "type",
+        "methodology" : "methodology"
+      }, {
+        "phrase" : "phrase",
+        "domain" : "domain",
+        "scope" : "scope",
+        "markdown" : "markdown",
+        "statement" : "statement",
+        "html" : "html",
+        "id" : "id",
+        "type" : "type",
+        "methodology" : "methodology"
+      } ],
+      "html" : "html",
+      "id" : "id"
+    } ]
+  },
+  "input" : {
+    "story" : "story"
+  },
+  "api" : {
+    "build" : 6.027456183070403,
+    "name" : "name",
+    "version" : 0.8008281904610115
+  },
+  "oexp" : {
+    "verion" : "verion",
+    "terms" : "terms",
+    "privacy" : "privacy"
+  },
+  "timestamp" : 1.4658129805029452
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Example response
+        <a href="#inline_response_200">inline_response_200</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: 200-sentences-processed-with-statements</div>
+    <pre class="example"><code>{&quot;api&quot;:{&quot;version&quot;:1,&quot;build&quot;:17,&quot;name&quot;:&quot;Open Question API&quot;},&quot;timestamp&quot;:1.6250040037487648E9,&quot;input&quot;:{&quot;story&quot;:&quot;In all cases, I don’t like to intentionally look for a solution, an answer or a different perspective. Demanding something doesn’t seem to lead to a breakthrough. Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors. I just can&#x27;t do this all the time.&quot;,&quot;options&quot;:{&quot;verbose&quot;:false}},&quot;output&quot;:{&quot;processed_text&quot;:&quot;In cases, I don’t like intentionally look solution, answer different perspective. Demanding something doesn’t seem lead breakthrough. Humbly yes, surrendering attempts figure own, creates new paths opens doors. I can&#x27;t time.&quot;,&quot;entities&quot;:[],&quot;sentences&quot;:[{&quot;id&quot;:&quot;2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c&quot;,&quot;markdown&quot;:&quot;In all cases, **I do not like** to intentionally look for a solution, an answer or a different perspective.&quot;,&quot;html&quot;:&quot;In all cases, &lt;strong class&#x3D;\&quot;phrase\&quot;&gt;I do not like&lt;/strong&gt; to intentionally look for a solution, an answer or a different perspective.&quot;,&quot;questions&quot;:[{&quot;id&quot;:&quot;2a242fa9a032dea0ab696e26b6b29dcfeea9120b0ea4c0880d19454c_q01&quot;,&quot;markdown&quot;:&quot;When saying **I do not like**, if you don&#x27;t, then what do you like instead?&quot;,&quot;html&quot;:&quot;&lt;span class&#x3D;\&quot;question\&quot;&gt;When saying &lt;strong class&#x3D;\&quot;phrase\&quot;&gt;I do not like&lt;/strong&gt;, if you don&#x27;t, then what do you like instead?&lt;/span&gt;&quot;,&quot;statement&quot;:&quot;Reflecting on what is there instead is a way to develop constructive thinking, leading to new perspectives and actions.&quot;}]},{&quot;id&quot;:&quot;861ce447e81754daa07aa9b8cd5706a0655ca314eda4a924d54bff43&quot;,&quot;markdown&quot;:&quot;Demanding something does not seem to lead to a breakthrough.&quot;,&quot;html&quot;:&quot;Demanding something does not seem to lead to a breakthrough.&quot;,&quot;questions&quot;:[]},{&quot;id&quot;:&quot;5606a1ab45363a8316589fd2bbfdd5cdabd6dc7f58bb07a7e482f75c&quot;,&quot;markdown&quot;:&quot;Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors.&quot;,&quot;html&quot;:&quot;Humbly yes, surrendering my attempts to figure it all out on my own, creates new paths and opens doors.&quot;,&quot;questions&quot;:[]},{&quot;id&quot;:&quot;6345f9953880d0d7243e2fd87a413dd82598a94de6c7706c6779acb0&quot;,&quot;markdown&quot;:&quot;I just can not do this **all the time**.&quot;,&quot;html&quot;:&quot;I just can not do this &lt;strong class&#x3D;\&quot;phrase\&quot;&gt;all the time&lt;/strong&gt;.&quot;,&quot;questions&quot;:[{&quot;id&quot;:&quot;6345f9953880d0d7243e2fd87a413dd82598a94de6c7706c6779acb0_q01&quot;,&quot;markdown&quot;:&quot;When saying **all the time**, what would you like to have happen instead?&quot;,&quot;html&quot;:&quot;&lt;span class&#x3D;\&quot;question\&quot;&gt;When saying &lt;strong class&#x3D;\&quot;phrase\&quot;&gt;all the time&lt;/strong&gt;, what would you like to have happen instead?&lt;/span&gt;&quot;,&quot;statement&quot;:&quot;Reflecting on and defining this element precisely will help identifying what goals and actions to put in place.&quot;}]}]},&quot;oexp&quot;:{&quot;verion&quot;:&quot;0.9.3&quot;,&quot;privacy&quot;:&quot;https://pocketconfidant.com/privacy/&quot;,&quot;terms&quot;:&quot;https://pocketconfidant.com/terms/&quot;}}</code></pre>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: 200-sentences-processed-verbose</div>
+    <pre class="example"><code></code></pre>
+    <h4 class="field-label">422</h4>
+    Example response
+        <a href="#inline_response_422">inline_response_422</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: example-1</div>
+    <pre class="example"><code></code></pre>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#API"><code>API</code> - API description</a></li>
+    <li><a href="#Exception"><code>Exception</code> - Exception output</a></li>
+    <li><a href="#OEXP"><code>OEXP</code> - OEXP description</a></li>
+    <li><a href="#Question"><code>Question</code> - Question object</a></li>
+    <li><a href="#Sentence"><code>Sentence</code> - Sentence object</a></li>
+    <li><a href="#inline_response_200"><code>inline_response_200</code></a></li>
+    <li><a href="#inline_response_200_1"><code>inline_response_200_1</code></a></li>
+    <li><a href="#inline_response_200_1_output"><code>inline_response_200_1_output</code></a></li>
+    <li><a href="#inline_response_200_2"><code>inline_response_200_2</code></a></li>
+    <li><a href="#inline_response_200_2_output"><code>inline_response_200_2_output</code></a></li>
+    <li><a href="#inline_response_200_input"><code>inline_response_200_input</code></a></li>
+    <li><a href="#inline_response_200_output"><code>inline_response_200_output</code></a></li>
+    <li><a href="#inline_response_422"><code>inline_response_422</code></a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="API"><code>API</code> - API description</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A model to describe API meta information like verion, build number, name</div>
+    <div class="field-items">
+      <div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">version </div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">build (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Exception"><code>Exception</code> - Exception output</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A model to describe exceptions and errors in the output</div>
+    <div class="field-items">
+      <div class="param">message </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">statusCode </div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="OEXP"><code>OEXP</code> - OEXP description</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A model describing required elements according to the Open Ethics eXplainability Protocol</div>
+    <div class="field-items">
+      <div class="param">verion (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">privacy (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">terms (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Question"><code>Question</code> - Question object</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A model for the question object</div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Question ID for the block of text or a sentence </div>
+<div class="param">markdown </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Question text provided in markdown </div>
+<div class="param">html </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Question text in html format </div>
+<div class="param">statement (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A text statement providing additional information to the user, explaining how to deal with questions and how to proceed. </div>
+<div class="param">phrase (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">domain (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">methodology (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">scope (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">type (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Sentence"><code>Sentence</code> - Sentence object</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A model for the sentence object</div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> unique sentence ID </div>
+<div class="param">markdown </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> sentence text in markdown format </div>
+<div class="param">html </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> sentence text in html format </div>
+<div class="param">questions (optional)</div><div class="param-desc"><span class="param-type"><a href="#Question">array[Question]</a></span> list of questions </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_200"><code>inline_response_200</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">api </div><div class="param-desc"><span class="param-type"><a href="#API">API</a></span>  </div>
+<div class="param">timestamp </div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">input </div><div class="param-desc"><span class="param-type"><a href="#inline_response_200_input">inline_response_200_input</a></span>  </div>
+<div class="param">output </div><div class="param-desc"><span class="param-type"><a href="#inline_response_200_output">inline_response_200_output</a></span>  </div>
+<div class="param">oexp </div><div class="param-desc"><span class="param-type"><a href="#OEXP">OEXP</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_200_1"><code>inline_response_200_1</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">api </div><div class="param-desc"><span class="param-type"><a href="#API">API</a></span>  </div>
+<div class="param">timestamp </div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">input </div><div class="param-desc"><span class="param-type"><a href="#inline_response_200_input">inline_response_200_input</a></span>  </div>
+<div class="param">output </div><div class="param-desc"><span class="param-type"><a href="#inline_response_200_1_output">inline_response_200_1_output</a></span>  </div>
+<div class="param">oexp </div><div class="param-desc"><span class="param-type"><a href="#OEXP">OEXP</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_200_1_output"><code>inline_response_200_1_output</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">questions </div><div class="param-desc"><span class="param-type"><a href="#Question">array[Question]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_200_2"><code>inline_response_200_2</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">api </div><div class="param-desc"><span class="param-type"><a href="#API">API</a></span>  </div>
+<div class="param">timestamp </div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">input </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">output </div><div class="param-desc"><span class="param-type"><a href="#inline_response_200_2_output">inline_response_200_2_output</a></span>  </div>
+<div class="param">oexp </div><div class="param-desc"><span class="param-type"><a href="#OEXP">OEXP</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_200_2_output"><code>inline_response_200_2_output</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">successMessage </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">statusCode </div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_200_input"><code>inline_response_200_input</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">story </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_200_output"><code>inline_response_200_output</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">sentences </div><div class="param-desc"><span class="param-type"><a href="#Sentence">array[Sentence]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_422"><code>inline_response_422</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">api </div><div class="param-desc"><span class="param-type"><a href="#API">API</a></span>  </div>
+<div class="param">timestamp </div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">input </div><div class="param-desc"><span class="param-type"><a href="#object">Object</a></span> complete input object </div>
+<div class="param">output </div><div class="param-desc"><span class="param-type"><a href="#Exception">Exception</a></span>  </div>
+<div class="param">oexp </div><div class="param-desc"><span class="param-type"><a href="#OEXP">OEXP</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>
